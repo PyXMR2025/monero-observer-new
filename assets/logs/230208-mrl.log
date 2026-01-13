@@ -1,0 +1,35 @@
+17:00:25 <UkoeHB> meeting time https://github.com/monero-project/meta/issues/794
+17:00:25 <UkoeHB> 1. greetings
+17:00:25 <UkoeHB> hello
+17:00:59 <Rucknium[m]> Hi
+17:00:59 <rbrunner> Hello
+17:01:02 <one-horse-wagon[> Hello.
+17:02:08 <ofrnxmr[m]> Hi
+17:02:49 <ArticMine[m]> Hi
+17:03:47 <UkoeHB> 2. updates, what's everyone working on?
+17:05:54 <Rucknium[m]> Writing code for OSPEAD. Testing it. 
+17:06:40 <ofrnxmr[m]> RavFX has written a guide for using ssd as cache to speedup sync times to HDD
+17:06:40 <ofrnxmr[m]> http://waw7epjul5xeacm4niblpgihdtg3atxyqekrlgz5spynqosdzftnbfad.onion/index.php?article=hdd_sync
+17:06:40 <ofrnxmr[m]> Nanopool had updated their block templates Today, and xmrig pushed an update a few days ago that allows setting the refresh time.
+17:06:40 <ofrnxmr[m]> I believe the majorty of xmr hashrate is now mining efficiently, keeping the tx pool clear 
+17:08:34 <one-horse-wagon[> Rucknium[m]: What language did you end up writing it in?
+17:08:49 <UkoeHB> me: I have been designing/implementing a tasking system that could be used in the seraphis wallet engine project (goals being: coherent data/control flow, maximizing responsiveness, maximizing CPU utilization).
+17:08:58 <Rucknium[m]> Thanks to everyone for asking the pools to update their block templates more frequently. In a few weeks I will probably re-run this analysis to measure the speed-up in first tx confirmation: https://rucknium.me/posts/monero-pool-transaction-delay/
+17:10:08 <Rucknium[m]> one-horse-wagon: I'm writing it in R. isthmus is considering helping me write the slow parts in C++, using the R code as a test vector.
+17:11:31 <Rucknium[m]> R has a very good way to wrap C++ called Rcpp
+17:14:07 <UkoeHB> 3. discussion
+17:14:19 <UkoeHB> it looks like there has been some debate on this: https://github.com/monero-project/monero/issues/6668 anyone care to summarize?
+17:15:10 <rbrunner> A real evergreen, that topic
+17:15:26 <rbrunner> Didn't know it flared up again ...
+17:19:33 <rbrunner> Have to read first, in any case
+17:21:46 <Rucknium[m]> I talked with kayabanerve about how to prevent txs from proving that they are the real spend of the output. You can maybe create transferable NFTs if you can prove you are the real spend in the next tx_extra. According to him, you can prove it in 64 bytes, so tx_extra would have to be very small to prevent transferable NFTs I think. And you would lose the ability to have refund addresses in tx_extra if you wanted that.
+17:23:07 <ArticMine[m]> I have to review the tx extra issue 
+17:23:17 <ArticMine[m]> ... before l can make any comments 
+17:25:46 <UkoeHB> ok well I think we can wrap it up then, I don't have anything more to say today
+17:26:06 <UkoeHB> unless there is something else to discuss ?
+17:27:06 <Rucknium[m]> Unless there are objections, I will explicitly put the tx_extra issue on the agenda for the next MRL meeting.
+17:27:13 <UkoeHB> ok
+17:27:29 <rbrunner> So we have homework this time, reading up the discussion :)
+17:30:09 <UkoeHB> that's all for today, thanks for attending everyone
+
+[post-meeting discussion: https://libera.monerologs.net/monero-research-lab/20230208#c201759]

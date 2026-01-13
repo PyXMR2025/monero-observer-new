@@ -1,0 +1,23 @@
+17:02:09 <UkoeHB> meeting time https://github.com/monero-project/meta/issues/839
+17:02:09 <UkoeHB> 1. greetings
+17:02:09 <UkoeHB> hello
+17:02:23 <rbrunner> Hello
+17:02:43 <vtnerd_> hi
+17:02:48 <ArticMine[m]> Hello 
+17:03:37 <Rucknium[m]> Hi
+17:04:46 <UkoeHB> 2. updates, what's everyone working on?
+17:05:31 <UkoeHB> me: rebased the seraphis library (and squashed all the commits for easier rebasing - you can see the history of commits in branch seraphis_lib_hist_05_15_23)
+17:05:46 <UkoeHB> now working on escrowed market design for monerokon
+17:06:59 <vtnerd_> I finally fixed all the functional_tests in the serialization replacement : https://github.com/vtnerd/monero/tree/replace_serialization
+17:07:07 <Rucknium[m]> Reviewing compdec 's (Nathan Borggren) research proposal as part of MAGIC Monero Fund committee. Doing some speedup refactoring of some OSPEAD code that is getting me to the point of feasible single-iteration Monte Carlo tests. The tests so far look good.
+17:08:54 <xmrack[m]> Hi
+17:12:12 <UkoeHB> 2. discussion, anything to discuss today?
+17:13:33 <Rucknium[m]> With the Bulleproofs++ paper, are we waiting for the author(s) to upload a new version to IACR with more complete math proofs?
+17:15:34 <Rucknium[m]> I think the steps were: Authors put a version to a conference that was "short" due to page limits & they said they would put up a longer version, Diego Salazar  said that the conference version "offloaded" a lot of...something, and therefore doing a review at this stage may not be a good idea. Is that correct?
+17:20:47 <vtnerd_> yeah Im not the best source, but I had trouble following the equations a bit - the documentation in the c implementation is actually better
+17:21:24 <vtnerd_> as far as it working, thats something else entirely because its different from the prior versions, so someone more qualified would have to review
+17:21:40 <vtnerd_> Diego seemed to be waiting on a newer version last I recall
+17:21:59 <UkoeHB> yeah we need the full version of the paper for a proper review
+17:24:03 <Rucknium[m]> plowsof could reach out to Eagen again.
+17:26:28 <UkoeHB> if there is nothing else to discuss today, we can wrap it up
+17:31:34 <UkoeHB> ok thanks for attending guys

@@ -1,0 +1,78 @@
+17:03:57 <Rucknium[m]> UkoeHB: Meeting time :)
+17:04:12 <ofrnxmr[m]> Greetings
+17:04:30 <vtnerd> hi
+17:07:27 <Rucknium[m]> I guess I will be temporary meeting chair
+17:07:27 <Rucknium[m]> Updates, what is everyone working on?
+17:07:57 <ofrnxmr[m]> Thanks Rucknium. 
+17:07:57 <ofrnxmr[m]> meeting agenda: 
+17:07:57 <ofrnxmr[m]> https://github.com/monero-project/meta/issues/830
+17:08:29 <Rucknium[m]> Not much Mordinal activity. By my count, only two Mordinals have been minted in the last week. Zero Mordinal transfer txs in the last week: https://gist.github.com/Rucknium/67cc9efdf7e43a40c52417611b322d43
+17:09:56 <Rucknium[m]> A seat has opened on the MAGIC Monero Fund committee. The committee has power to disburse about 300 XMR from its general fund for research and development projects: https://magicgrants.org/Special-Election-for-MAGIC-Monero-Fund-MajesticBank/
+17:10:07 <Rucknium[m]> Apply to run if you are interested
+17:10:11 <ofrnxmr[m]> ive just been testing / running jeffros coincase segregation pr: 
+17:10:11 <ofrnxmr[m]> https://github.com/monero-project/monero/pull/8815
+17:11:57 <Rucknium[m]> I'm reviewing some proposed research of Overseer/EAE/EABE attack / churning. Does anyone have thoughts on what this type of research should cover? In other words, a formalization and what sort of aspects should not be simplified out of the problem?
+17:13:16 <Rucknium[m]> Diego Salazar: Any updates about the BP++ paper now that there is the new version with math proofs?
+17:14:13 <vtnerd> DiegoSalazar[m] ^ should ping
+17:14:26 <ofrnxmr[m]> just a note on churning, datahoarder / p2pool has some tools to find likely owned inputs consolidations on p2pool.observer
+17:14:27 <DiegoSalazar[m]> oh yah hi
+17:14:48 <DataHoarder> for last likely ones https://p2pool.observer/sweeps
+17:14:48 <ofrnxmr[m]> plowsof @plowsof:matrix.org:  pinging 
+17:14:50 <DiegoSalazar[m]> we'll have an hour estimate to you guys this week
+17:14:57 <DataHoarder> you can lookup any transaction via https://p2pool.observer/transaction-lookup
+17:15:26 <ofrnxmr[m]> Thank you DataHoarder: 
+17:15:39 <DataHoarder> I can provide data if desired, it's mostly flagging very certain ones but this could be expanded once I have more time
+17:15:52 <plowsof11> Thanks Diego Salazar !
+17:16:10 <Rucknium[m]> DataHoarder: Thanks. Do you have payout address data from the p2pool sidechains from the beginning? Or only recently?
+17:16:52 <DataHoarder> for main p2pool, from early on but not beggining. for mini, since the beggining. older ones could be backfilled theoretically, using this same data. 
+17:17:19 <DataHoarder> some empty spots exist in between but same, can be filled with some heuristics. otherwise it's almost all the block data
+17:18:06 <DataHoarder> 23528 blocks on main vs p2pool.io reported 23779 for main
+17:18:26 <Rucknium[m]> Thanks. I think tests or classifications could be formalized. Would take some effort to do so.
+17:18:48 <DataHoarder> 1763 blocks for mini vs 1763 on p2pool.io
+17:19:00 <DataHoarder> + the old pre-fork chains that keep generating blocks
+17:20:12 <DataHoarder> formalized test/classification would be great, also looking into doing backwards looks to what is the most likely of spends for a given output given all existing decoys - fine tune as it finds new data. Ping me if you want more info around this, also reachable on #p2pool-log (to not hog this meeting)
+17:21:03 <plowsof11> as of this second, my peer lists public rpc nodes consist of  232 nodes not on v18.2.2 and 208 that have updated.. its about 50% for me personally 
+17:21:30 <Rucknium[m]> plowsof: Do you know that because you are sending test Mordinals?
+17:22:10 <plowsof11> i send a bogus transaction, and the error returned contains the new field 'tx extra to big' 
+17:22:41 <plowsof11> attempt to broadcast a bogus raw tx*
+17:23:40 <Rucknium[m]> Almost 50% is pretty good. Of course, it could be selection bias from your network neighbors
+17:23:56 <Rucknium[m]> Can you test on mining pool nodes?
+17:26:14 <plowsof11> would be better yes ^  data={"tx_as_hex": "did_you_update_lol"} , r = requests.post("http://node.monerodevs.org:18089/sendrawtransaction", json=data, timeout=10),if "tx_extra_too_big" in r.json():
+17:26:31 <ofrnxmr[m]> would need the pools rpc addresses. 
+17:26:32 <ofrnxmr[m]> some have been collected, and some are publicly available.
+17:26:32 <ofrnxmr[m]> hashvaults is even unrestricted 👀. 
+17:26:32 <ofrnxmr[m]> should be possibke to check a few of the big ones 
+17:27:46 <Rucknium[m]> I guess there is no guarantee that their public RPC node is the same version as their node they use to construct the blocks sent to client miners.
+17:29:53 <ofrnxmr[m]> Likely a second node(s),like cake has many to load balance 
+17:29:54 <ofrnxmr[m]> http://nodes.hashvault.pro:18081/get_info
+17:29:54 <ofrnxmr[m]> unrestricted though 
+17:30:15 <ofrnxmr[m]> I guess they can update and fix config in the same email
+17:32:27 <merope> > <@ofrnxmr:monero.social> Likely a second node(s),like cake has many to load balance 
+17:32:27 <merope> > http://nodes.hashvault.pro:18081/get_info
+17:32:27 <merope> > unrestricted though 
+17:32:27 <merope> I see a `"restricted": true,` and the version number is missing 🤔
+17:32:48 <merope> Perhaps you're resolving to a different ip though, and that one is misconfigured?
+17:33:15 <ofrnxmr[m]> plowsof just said the same. Definitely a geolocation thing
+17:35:27 <Rucknium[m]> Anything else to discuss?
+17:36:00 * ofrnxmr[m] uploaded an image: (114KiB) < https://libera.ems.host/_matrix/media/v3/download/monero.social/TSdQeaItypHHRgmWULAblwmW/fie1kq69ya7a3mhj.jpg >
+17:36:33 <ofrnxmr[m]> Tevador opened a pr for randomx.. seems like it helps with wowneros recent chainsplit behavior
+17:37:17 <Rucknium[m]> ofrnxmr: Do you know much about the wownero chainsplit? Why did it happen?
+17:37:41 <ofrnxmr[m]> Hard fork split on spril 1
+17:38:05 <ofrnxmr[m]> Chains diverged by 30+- blocks for the first few days
+17:38:36 <ofrnxmr[m]> a few weeks in, nkdes were getting foked off onto a second chain
+17:38:54 <ofrnxmr[m]> At one point they were 25 and 18 mh
+17:39:24 <ofrnxmr[m]> Therr is still at least 2 chains mining, and at the sme hight
+17:39:44 <Rucknium[m]> Both using the post-hardfork consensus rules?
+17:40:44 <ofrnxmr[m]> i think wow may have messed up the hard fork (11.0 vs 11.0.1)
+17:40:58 <merope> ofrnxmr[m]: See what ip address you get with dig or nslookup for that domain
+17:41:25 <ofrnxmr[m]> But yeah, the old chain is using new consensus rules, but i think they updated late 
+17:41:27 <ofrnxmr[m]> The split* chains
+17:42:45 <ofrnxmr[m]> Before i forget to link it, tevadors pr:
+17:42:45 <ofrnxmr[m]> https://github.com/tevador/RandomX/pull/265
+17:46:00 <Rucknium[m]> Ok. I don't fully understand what's happened. I hope Wownero community/devs can write a post-mortem when the problem is fixed.
+17:47:36 <Rucknium[m]> Anything else?
+17:48:14 <UkoeHB> ah fell asleep sorry, update is finishing up my 'implementing seraphis' companion paper
+17:48:32 <ofrnxmr[m]> Thats all from me.
+17:48:32 <ofrnxmr[m]> Thanks Ruck (and koe :P)
+17:50:58 <UkoeHB> thanks Rucknium[m] 
+

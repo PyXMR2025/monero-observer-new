@@ -1,0 +1,28 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+
+Monero Observer Onion: ttq5m3lsdhjysspvof6m72lbygclzyeelvn3wgjj7m3fr4djvbgepwyd.onion
+Email/XMPP: escapethe3ra@disroot.org
+XMPP Fingerprint: 3d134af6 451e4a28 d73a51cd e6809e29 1cc240dd fa2fd10a 6565d920 0e53c376
+PGP Key Fingerprint: BCE1 5F74 D181 1282 4899  608A FD10 3120 DC7B CC36
+Github/Gitlab/Reddit: escapethe3ra
+Matrix: @escapethe3ra:matrix.org
+-----BEGIN PGP SIGNATURE-----
+
+iQKTBAEBCgB9FiEEvOFfdNGBEoJImWCK/RAxINx7zDYFAmPumPtfFIAAAAAALgAo
+aXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5maWZ0aGhvcnNlbWFuLm5ldEJD
+RTE1Rjc0RDE4MTEyODI0ODk5NjA4QUZEMTAzMTIwREM3QkNDMzYACgkQ/RAxINx7
+zDZHjBAAlWEGFmVcIcDgJkphOOYxkt6ne4XyJgu+TvFKezXGvKf/P4+2OZmXHCof
+6wu459fX+4DP8GrBGvDdygyJmvKXgSgKwrnPCfGb56jxUh6l/Szgl1MflgZQKFUj
+i8R8UUax8+0NV1qkwsrUn3uK/QCayXStBg7tZHWMsSHLK8MF+Mg+Q2P8bPP7piwu
+QO/FznZsISymnEqkQFJHCt9dBulF41TIPSkE5xqtmoOepPV3GPKakLf4LIhrTlvf
+VKgpztJmLRB3eM4xsb1Qz7UKpOPyv9IeD6PgMu44y3OOaby4+V4L83EWtauc0ZSC
+Uiuo8sdvqEttkyMOAkstdYLkVSOxWQCVhJQxfJf4sGsQYflKS4qhda7dWR/COpXk
+0i9wT6NNrTw1NOOiVXrx1Bic+MZMcvitYdEExc9MmtgA+PduA3l1Rar1eoE0X5Wf
+BT6z+G2ZfrfCObkB4mgog19R+Gvbvwj3Rbr94E0tG8ljzSKMHWCJEbrt3NmnGKPM
+Bj5qIvUSrbn5h1P8l5jXp5XkzAYgHQ+ukNsvFpvcO0WiZyxWuQSrqm/yTicsDYAF
+uQgD/atz34bWGNCry1itTATWqFHdZW1njOqV6gAgXHBsBbNlfq3EvFLn1MJw7czz
+gmkkWZ/nz6CSQkTJrHUtJztLsJ8VgsMvNqUJq4C5ztUTTAKx3AY=
+=cs2V
+-----END PGP SIGNATURE-----

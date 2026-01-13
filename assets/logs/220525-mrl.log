@@ -1,0 +1,63 @@
+17:00:02 <UkoeHB> meeting time: https://github.com/monero-project/meta/issues/709
+17:00:02 <UkoeHB> 1. greetings
+17:00:02 <UkoeHB> hello
+17:00:19 <jberman[m]> hello
+17:00:23 <rbrunner> Hi there
+17:00:34 <xmr-ack[m]> Hi
+17:00:47 <gingeropolous> o/
+17:01:35 <Rucknium[m]> Hi
+17:02:16 <dangerousfreedom> Hello
+17:02:41 <merope> Hello
+17:02:54 <UkoeHB> 2. updates; what is everyone working on?
+17:04:04 <dspringer71[m]> hello
+17:04:19 <UkoeHB> me: working on seraphis enote scanning workflow, and in the middle of a detour to rework the tx building workflows for this https://gist.github.com/tevador/50160d160d24cfc6c52ae02eb3d17024?permalink_comment_id=4176179#gistcomment-4176179
+17:05:05 <xmr-ack[m]> Me: lots of travel this last week, but continuing to work on feature engineering. Neptune is helping me out with setting up a database with all references to decoy occurrences on chain.
+17:06:08 <jberman[m]> mainly been working through understanding the changes to the server code in 7760, stepping through old and new code with provided tests + setting up my own mini boost asio test env to figure it out. taking me quite a bit to get up to speed with boost asio but making progress
+17:06:14 <dangerousfreedom> I will hand my first delivery for the first part of my ccs next week. I believe I understand MLSAG and the first rangeproofs. I will be working on CLSAG and Bulletproofs next month. Meanwhile, I have been scanning the blockchain looking for some leaks or strange things that could lead to inflation. I have to thank gingeropolous because now my work is much faster as I have access to some computing resources :)
+17:06:53 <Rucknium[m]> Doing some statistical analysis of personal characteristics that are associated with using cryptocurrency as a means of payment, based on the U.S. Federal Reserve's recently-released Survey of Household Economics and Decisionmaking 2021 microdata. Preliminary results suggest that financial marginalization is positively correlated with use of cryptocurrency as a means of payment in the U.S., somewhat to my surprise. I think I can
+17:06:53 <Rucknium[m]> push something out by tomorrow.
+17:09:21 <UkoeHB> thanks for the updates
+17:09:28 <UkoeHB> 3. discussion, anything to discuss?
+17:09:32 <mj-xmr[m]> I've been busy preparing the 1st milestone of SolOptXMR with endor00 . After this, I'll return to my decoy task.
+17:10:55 <rbrunner> Do you expect any more changes to #8149, or do you think it's complete now? Was somewhat surprised to see how much changed 2 days ago.
+17:10:59 <UkoeHB> For seraphis, I want to emphasize that the update I mentioned basically kills collaborative funding and isolated enotes. Those were both mostly 'nice-to-haves', so while unfortunate I'm not that sad. My multisig verification code is a lot easier with this.
+17:11:43 <UkoeHB> rbrunner: no more changes. I rolled back some stuff I shoved in their since it was out of scope.
+17:11:48 <UkoeHB> there*
+17:12:16 <rbrunner> Ok, thanks
+17:12:52 <Rucknium[m]> dangerousfreedom: Thanks. Any non-uniformities in the transactions that are in the cryptography (like you have already found) can be beneficial for identifying nonstandard wallet implementations. So keep collecting them :) 
+17:13:24 <UkoeHB> does anyone have more opinions about https://github.com/monero-project/monero/issues/8351 ?
+17:14:21 <jberman[m]> UkoeHB: can you give a refresher description of isolated enotes/what functionality would be lost as a result? 
+17:14:27 <dangerousfreedom> Thanks, so far I have some issues with these stealth addressess being outside the prime group. They can be members of ring signatures later and then compromise fungibility... yeah give your thoughts
+17:14:28 <Rucknium[m]> UkoeHB: Is collaborative funding something that the underlying cryptography would still support, i.e. is this just a wallet implementation simplification?
+17:15:55 <UkoeHB> jberman[m]: 'isolated enote' means creating an enote without any surrounding context (no other tx outputs, no tx inputs). There are no known tx engineering protocols that could use that. Now you need to know the full input set when defining your enotes (or block height for coinbase txs).
+17:17:47 <UkoeHB> Rucknium[m]: previously, collaborative funding could have an easy interface (so it could be supported by the core wallet API), but now you need an interactive protocol between all tx participants (which won't be supported by my PoC, and shouldn't be supported by the core wallet).
+17:18:22 <UkoeHB> so yes, it can still be done, but it's harder and more constrained
+17:18:46 <moneromooo> Collaborative funding being... Alice and Bob both sign a ring in the same tx ?
+17:18:53 <UkoeHB> moneromooo: yes
+17:22:35 <rbrunner> From what I can grasp right now, I agree with that trade-off: Robust core protocol trumps nice-to-have features as this one
+17:22:45 <jberman[m]> wouldn't collaborative funding be interactive by definition either way? little confused on that
+17:25:12 <UkoeHB> jberman[m]: old version: define outputs, publish output set proposal, anyone can send in partial inputs funding the output set; new version: define destination set, define input set, finish defining outputs as function of inputs, make partial inputs, complete tx (so you need to interact with other input contributors + the output set definer in order to make input sigs)
+17:25:37 <moneromooo> Does Seraphis use bulletproofs ? 
+17:25:43 <UkoeHB> moneromooo: yes
+17:26:32 <moneromooo> When I coded collaborative inputs, it turned out it was impossible (as far as Sarang found) to create the BPs without leaking the real spends to other funders.
+17:27:43 <UkoeHB> not sure why that would be
+17:27:59 <moneromooo> I couldn't tell you, sorry. I'm just a code monkey :)
+17:28:04 <UkoeHB> but yeah it does take some careful thought to prevent info leaks
+17:29:04 <UkoeHB> moneromooo: was it MoJoin?
+17:29:25 <moneromooo> Oh I think it might have taken that name at some point...
+17:29:48 <moneromooo> I don't remmeber the timeline tbh.
+17:30:11 <UkoeHB> the TxTangle protocol in ZtM2 is an evolution on MoJoin, you'd probably need something like that to get collaborative funding with seraphis (maybe a bit simpler though)
+17:31:22 <moneromooo> Anyway, the reason I mentioned this is (1) it'd be nice to get it and (2) if we use BP anyway, it's already DoA due to the leak anyway so no big loss.
+17:31:33 <moneromooo> Unless someone found a way to avoid the leak since then.
+17:32:21 <UkoeHB> it would need to be a third-party solution like atomic swaps
+17:33:57 <jberman[m]> Losing that collaborative funding flow does seem a bit of an unfortunate loss. sounds like the old could enable a nicer crowdfunding model (something Rucknium has brought up in the past about an approach to CCS that doesn't involve trusted parties e.g.)
+17:34:20 <UkoeHB> yeah it was originally inspired by Rucknium[m]'s comments
+17:37:39 <Rucknium[m]> FWIW, BCH's Flipstarter is basically a third-party implementation. The first generation version of Flipstarter needed some software running on a VPS for the Flipstarter "host" and a plugin on the Electron Cash wallet for donors.
+17:40:09 <UkoeHB> Any other topics people want to discuss?
+17:42:21 <UkoeHB> ok I think we can close it out here; thanks for attending everyone
+17:42:36 <Rucknium[m]> Does anyone have any ideas on "sanity checks" I can run on this Federal Reserve Household Economics data? Basically, what characteristics might we assume be correlated with use of cryptocurrency as a means of payment? I have checked education degree (computer science is the only statistically significant degree associated with use of cryptocurrency as a means of payment) and willingness to take risks (yes, it's positively
+17:42:37 <Rucknium[m]> correlated).
+17:42:50 <UkoeHB> nvm meeting continues lol
+17:42:58 <Rucknium[m]> I want to make sure that the data is not just random responses. So far, the data seems legit.
+17:43:34 <Rucknium[m]> Also, use of cryptocurrency as a means of payment is associated with lower life satisfaction. That's consistent with everyone's personal experience, right? :P
+17:43:41 <merope> Usage in DNMs/association with crime, maybe? But I don't know if/how that could be                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

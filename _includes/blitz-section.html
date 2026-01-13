@@ -1,0 +1,23 @@
+<h1>Monthly Blitz Reports {% assign blitz_issues = site.posts | where: "tags", "blitz" %}
+<sup><a href="/tag/blitz">[{{ blitz_issues.size }}]</a></sup>
+</h1>
+
+<div class="periodicals">
+{% assign blitz_stories = site.posts | where: "tags", "blitz" %}
+{% for post in blitz_stories limit: 1 %}
+<div id="blitz">
+<a href="{{ post.url }}">
+<img src="/assets/img/blitz/{{ post.image }}" id="graphic" alt="banner"/>
+</a>
+</div>
+{% endfor %}
+
+<div id="blitz-extended">
+{% for post in blitz_stories limit: 4 offset: 1 %}
+<a href="{{ post.url }}">
+<img src="/assets/img/blitz/{{ post.image }}" id="graphic" alt="banner"/>
+</a>
+{% endfor %}
+</div>
+
+</div>
